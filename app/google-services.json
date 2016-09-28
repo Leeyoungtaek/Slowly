@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "139809038852",
+    "firebase_url": "https://slowly-3339f.firebaseio.com",
+    "project_id": "slowly-3339f",
+    "storage_bucket": "slowly-3339f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139809038852:android:294ab5374a850d21",
+        "android_client_info": {
+          "package_name": "com.naxesa.slowly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139809038852-c05pd3o9gk3uj3qlrpfefqn28o8tolsq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naxesa.slowly",
+            "certificate_hash": "1A7AD1D8C51305EA2B087FC9F963397BD5243EB1"
+          }
+        },
+        {
+          "client_id": "139809038852-vqvgk9fc70r7o445c460gbjb265m1q6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAueZOdxfEL1l-cVV1OfTAH3fb8x8QmHfI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139809038852-vqvgk9fc70r7o445c460gbjb265m1q6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
