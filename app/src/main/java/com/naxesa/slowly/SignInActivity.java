@@ -2,7 +2,9 @@ package com.naxesa.slowly;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.*;
 import android.os.Message;
@@ -47,6 +49,10 @@ public class SignInActivity extends AppCompatActivity {
         }
     };
 
+    // SQLite
+    private SQLiteDatabase db;
+    private LogInSQLiteOpenHelper helper;
+
     private String email, password;
 
     // Firebase
@@ -67,6 +73,9 @@ public class SignInActivity extends AppCompatActivity {
 
         // Firebase Reference
         auth = FirebaseAuth.getInstance();
+
+        // SQLite
+        helper = new LogInSQLiteOpenHelper(getApplicationContext(), "login.db", null, 1);
 
         // View Setting
         Typeface tf = Typeface.createFromAsset(getAssets(), "beyond_the_mountains.ttf");
@@ -95,6 +104,11 @@ public class SignInActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    db = helper.getWritableDatabase();
+                                    ContentValues values = new ContentValues();
+                                    values.put("email", email);
+                                    values.put("password", password);
+                                    db.insert("login", null, values);
                                     progressThread.setmState(ProgressThread.STATE_DONE);
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);

@@ -20,7 +20,7 @@ public class LogInSQLiteOpenHelper extends SQLiteOpenHelper {
         String sql = "create table " + tableName + " (" +
                 "_id integer primary key autoincrement, " +
                 "email text, " +
-                "password text, " +
+                "password text" +
                 ");";
         sqLiteDatabase.execSQL(sql);
     }

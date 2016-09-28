@@ -3,6 +3,7 @@ package com.naxesa.slowly;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -11,6 +12,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,8 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView name;
     private TextView btnAdd, btnBook;
     private TextView famousSaying, famousSayingPerson;
+    private Button btnLogOut;
     private ProgressDialog progressDialog;
     private ProgressThread progressThread;
+
+    // SQLite
+    private SQLiteDatabase db;
+    private LogInSQLiteOpenHelper helper;
 
     // Handler
     Handler mHandler = new Handler(){
@@ -67,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         btnBook = (TextView)findViewById(R.id.book);
         famousSaying = (TextView)findViewById(R.id.famous_saying);
         famousSayingPerson = (TextView)findViewById(R.id.famous_saying_person);
+        btnLogOut = (Button)findViewById(R.id.log_out);
 
         // Firebase Reference
         auth = FirebaseAuth.getInstance();
@@ -75,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         int index = random.nextInt(8) + 1;
         databaseReference = firebaseDatabase.getReference("famousSaying/" + index);
+
+        // SQLite
+        helper = new LogInSQLiteOpenHelper(getApplicationContext(), "login.db", null, 1);
 
         // Data Loading
         showDialog(LOADING);
@@ -129,6 +140,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logIn();
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     // Data
@@ -145,5 +165,10 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return null;
         }
+    }
+
+    private void logIn(){
+        db = helper.getWritableDatabase();
+        db.execSQL("delete from " + "login  ");
     }
 }
